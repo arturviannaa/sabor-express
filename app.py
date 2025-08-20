@@ -1,7 +1,11 @@
 import os
 import time
 
-restaurantes = ['Xis Patrola', 'Xis do Gringo']
+restaurantes = [
+    {'nome':'Xis Patrola', 'categoria':'Lanches', 'ativo':False},
+    {'nome':'Xis do Gringo', 'categoria':'Lanches', 'ativo':True},
+    {'nome':'Xis Esquinão', 'categoria':'Lanches', 'ativo':False}
+]
 
 def exibir_nome_do_programa():
     nome_do_programa = '''
@@ -40,9 +44,12 @@ def cadastrar_novo_restaurante():
     exibir_subtitulo('Cadastro de novos restaurantes')
 
     nome_do_restaurante = input('Digite o nome do restaurante que deseja cadastrar: ')
-    restaurantes.append(nome_do_restaurante)
+    categoria = input(f'Digite a categoria do restaurante {nome_do_restaurante}: ')
+    dados_do_restaurante = {'nome':nome_do_restaurante, 'categoria':categoria, 'ativo':False}
 
     print(f'\nO restaurante {nome_do_restaurante} foi adicionado com sucesso!')
+
+    restaurantes.append(dados_do_restaurante)
 
     voltar_ao_menu_principal()
 
@@ -50,7 +57,10 @@ def listar_restaurantes():
     exibir_subtitulo('Listando restaurantes')
 
     for restaurante in restaurantes:
-        print(f'.{restaurante}')
+        nome_restaurante = restaurante['nome']
+        categoria = restaurante['categoria']
+        ativo = restaurante['ativo']
+        print(f'- {nome_restaurante} | {categoria} | {ativo}')
 
     voltar_ao_menu_principal()
 
