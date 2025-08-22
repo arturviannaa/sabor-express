@@ -1,4 +1,5 @@
 from models.rating import Rating
+from models.menu.menu_item import MenuItem
 
 class Restaurant:
     restaurants = []
@@ -8,6 +9,7 @@ class Restaurant:
         self._category = category.upper()
         self._status = False
         self._rating = []
+        self._menu = []
         Restaurant.restaurants.append(self)
 
     def __str__(self):
@@ -41,3 +43,18 @@ class Restaurant:
         average = round(sum_of_grades / amount_of_grades, 1)
 
         return average
+
+    def add_item_in_menu(self, item):
+        if isinstance(item, MenuItem):
+            self._menu.append(item)
+
+    @property
+    def show_menu(self):
+        print(f'Cardápio do restaurante {self._name}\n')
+        for i, item in enumerate(self._menu, start=1):
+            if hasattr(item, 'description'):
+                dish_message = f'{i}. Nome: {item._name} | Preço: R${item._price} | Descrição: {item.description}'
+                print(dish_message)
+            else:
+                drink_message = f'{i}. Nome: {item._name} | Preço: R${item._price} | Tamanho: {item.size}'
+                print(drink_message)
